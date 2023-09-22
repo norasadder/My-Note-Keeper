@@ -7,6 +7,8 @@
   color: black;
 }
 
+/* Header =============================================================== */
+
 .header {
   display: flex;
   height: 5vh;
@@ -43,4 +45,63 @@
   height: 70%;
   background-color: transparent;
   border: none;
+}
+/* Add Note =============================================================== */
+
+.add-note-container {
+  width: 30%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Box shadow effect */
+}
+
+.add-note-form {
+  width: 30%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Box shadow effect */
+}
+
+.add-note-container > button {
+  background-color: transparent;
+  display: flex;
+  justify-content: start;
+  font-size: 16px;
+  border: none;
+  color: gray;
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+}
+
+.add-note-title {
+  margin-bottom: 5%;
+  font-size: 16px;
+  border: none;
+}
+
+.add-note-content {
+  margin-bottom: 5%;
+  font-size: 14px;
+  border: none;
+}
+
+.add-note-close {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-note-close input {
+  font-size: 16px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 }
