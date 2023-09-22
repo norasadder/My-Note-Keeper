@@ -97,31 +97,93 @@ function AddNote() {
 }
 
 function Note({ note }) {
+  const [noteTitle, setNoteTitle] = useState(note.title);
+  const [noteContent, setNoteContent] = useState(note.content);
   const [noteClicked, setNoteClicked] = useState(false);
   const [noteDeleted, setNoteDeleted] = useState(false);
   function handleOnClickNote() {
     return setNoteClicked(true);
   }
 
+  function handleOnClickCancel() {
+    return setNoteClicked(false);
+  }
+
   function handleOnClickDeleteNote(e) {
     e.stopPropagation();
     return setNoteDeleted(true);
   }
+
+  function handleOnChangeTitle(e) {
+    setNoteTitle(e.target.value);
+  }
+
+  function handleOnChangeContent(e) {
+    setNoteContent(e.target.value);
+  }
+
+  function handleOnClickDone() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const currentDate = `${month}/${day}/${year}`;
+
+    const requestData = {
+      title: noteTitle,
+      content: noteContent,
+      creationDate: currentDate,
+    };
+    fetch(`http://localhost:3001/notes/${note._id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
   return (
     <>
       {noteClicked && (
         <div className="note-on-click-container">
           <form className="note-on-click">
             <div className="note-on-click-title">
-              <input type="text" defaultValue={note.title}></input>
+              <input
+                type="text"
+                defaultValue={note.title}
+                onChange={handleOnChangeTitle}
+              ></input>
             </div>
             <div className="note-on-click-content">
-              <input type="text" defaultValue={note.content}></input>
+              <input
+                type="text"
+                defaultValue={note.content}
+                onChange={handleOnChangeContent}
+              ></input>
             </div>
             <p className="note-on-click-creation-date">{note.creationDate}</p>
             <div className="note-on-click-buttons">
-              <button className="note-on-click-cancel"> cancel </button>
-              <button className="note-on-click-done">done</button>
+              <button
+                className="note-on-click-cancel"
+                onClick={handleOnClickCancel}
+              >
+                cancel
+              </button>
+              <button
+                className="note-on-click-done"
+                onClick={handleOnClickDone}
+              >
+                done
+              </button>
             </div>
           </form>
         </div>
