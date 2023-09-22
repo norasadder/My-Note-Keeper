@@ -51,11 +51,131 @@ function AddNote() {
   );
 }
 
+function Note({ note }) {
+  const [noteClicked, setNoteClicked] = useState(false);
+  const [noteDeleted, setNoteDeleted] = useState(false);
+  function handleOnClickNote() {
+    return setNoteClicked(true);
+  }
+
+  function handleOnClickDeleteNote(e) {
+    e.stopPropagation();
+    return setNoteDeleted(true);
+  }
+  return (
+    <>
+      {noteClicked && (
+        <div className="note-on-click-container">
+          <form className="note-on-click">
+            <div className="note-on-click-title">
+              <input type="text" defaultValue={note.title}></input>
+            </div>
+            <div className="note-on-click-content">
+              <input type="text" defaultValue={note.content}></input>
+            </div>
+            <p className="note-on-click-creation-date">{note.creationDate}</p>
+            <div className="note-on-click-buttons">
+              <button className="note-on-click-cancel"> cancel </button>
+              <button className="note-on-click-done">done</button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {noteDeleted && (
+        <div className="note-on-delete-container">
+          <div className="note-on-delete">
+            <div className="note-on-delete-title">
+              <p>Note Deletion</p>
+            </div>
+            <div className="note-on-delete-content">
+              <p>are you sure you want to delete this note?</p>
+            </div>
+            <div className="note-on-delete-buttons">
+              <button className="note-on-delete-close"> close </button>
+              <button className="note-on-delete-delete">delete</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <button className="note-container" onClick={handleOnClickNote}>
+        <div className="note-title">
+          <p>{note.title}</p>
+        </div>
+        <div className="note-content">
+          <p>{note.content}</p>
+        </div>
+        <p className="note-creation-date">{note.creationDate}</p>
+        <a className="delete-note" onClick={handleOnClickDeleteNote}>
+          <img src={require("./images/trash.png")}></img>
+        </a>
+      </button>
+    </>
+  );
+}
+
+function NotesContainer({ notes }) {
+  let arr = [];
+  // const BG_COLORS = ["white,orange,yellow"];
+  // const BORDER_COLORS = ["gray,none,none"];
+
+  // const [noteColorsIndex, setNoteColorsIndex] = useState(0);
+
+  notes.forEach((element) => {
+    arr.push(<Note note={element} key={element.title} />);
+  });
+  return <div className="notes-container">{arr}</div>;
+}
+
 export default function App() {
+  const NOTES = [
+    {
+      title: "note1",
+      content: "content1",
+      creationDate: "6/9/2023",
+    },
+    {
+      title: "note2",
+      content: "content2",
+      creationDate: "6/9/2023",
+    },
+    {
+      title: "note3",
+      content: "content3",
+      creationDate: "6/9/2023",
+    },
+    {
+      title: "note4",
+      content: "content4",
+      creationDate: "6/9/2023",
+    },
+    {
+      title: "note5",
+      content: "content5",
+      creationDate: "6/9/2023",
+    },
+    {
+      title: "note6",
+      content: "content6",
+      creationDate: "6/9/2023",
+    },
+    {
+      title: "note7",
+      content: "content7",
+      creationDate: "6/9/2023",
+    },
+    {
+      title: "note8",
+      content: "content8",
+      creationDate: "6/9/2023",
+    },
+  ];
   return (
     <div>
-      <Header /> ;
-      <AddNote />;
+      <Header />
+      <AddNote />
+      <NotesContainer notes={NOTES} />
     </div>
   );
 }
