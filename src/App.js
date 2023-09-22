@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function Header() {
@@ -20,8 +20,51 @@ function Header() {
 
 function AddNote() {
   const [isVisisble, setIsVisisble] = useState(false);
+  const [noteTitle, setNoteTitle] = useState("");
+  const [noteContent, setNoteContent] = useState("");
   function handleOnClick() {
     setIsVisisble(!isVisisble);
+  }
+
+  function handleKeyPress(event) {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const currentDate = `${month}/${day}/${year}`;
+
+    const requestData = {
+      title: noteTitle,
+      content: noteContent,
+      creationDate: currentDate,
+    };
+
+    if (event.key === "Enter") {
+      console.log("Enter key pressed");
+      fetch("http://localhost:3001/notes", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+  }
+
+  function handleOnChangeTitle(e) {
+    setNoteTitle(e.target.value);
+  }
+
+  function handleOnChangeContent(e) {
+    setNoteContent(e.target.value);
   }
   return (
     <div>
@@ -31,16 +74,18 @@ function AddNote() {
         </div>
       )}
       {isVisisble && (
-        <form className="add-note-form">
+        <form className="add-note-form" onKeyDown={handleKeyPress}>
           <input
             type="text"
             className="add-note-title"
             placeholder="Title"
+            onChange={handleOnChangeTitle}
           ></input>
           <input
             type="text"
             className="add-note-content"
             placeholder="Take a note..."
+            onChange={handleOnChangeContent}
           ></input>
           <div className="add-note-close">
             <input type="submit" value="close" onClick={handleOnClick}></input>
@@ -129,53 +174,34 @@ function NotesContainer({ notes }) {
 }
 
 export default function App() {
-  const NOTES = [
-    {
-      title: "note1",
-      content: "content1",
-      creationDate: "6/9/2023",
-    },
-    {
-      title: "note2",
-      content: "content2",
-      creationDate: "6/9/2023",
-    },
-    {
-      title: "note3",
-      content: "content3",
-      creationDate: "6/9/2023",
-    },
-    {
-      title: "note4",
-      content: "content4",
-      creationDate: "6/9/2023",
-    },
-    {
-      title: "note5",
-      content: "content5",
-      creationDate: "6/9/2023",
-    },
-    {
-      title: "note6",
-      content: "content6",
-      creationDate: "6/9/2023",
-    },
-    {
-      title: "note7",
-      content: "content7",
-      creationDate: "6/9/2023",
-    },
-    {
-      title: "note8",
-      content: "content8",
-      creationDate: "6/9/2023",
-    },
-  ];
+  const [notes, setNotes] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/notes", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const fetchedData = await response.json();
+        setNotes(fetchedData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       <Header />
       <AddNote />
-      <NotesContainer notes={NOTES} />
+      {notes && <NotesContainer notes={notes} />}
     </div>
   );
 }
