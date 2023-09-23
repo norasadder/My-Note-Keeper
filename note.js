@@ -22,6 +22,20 @@ router.post("/notes", async (req, res) => {
   }
 });
 
+router.get("/notes/:content", async (req, res) => {
+  console.log("search recieved");
+  const contentToSearch = req.params.content;
+
+  try {
+    const notes = await Note.find({
+      title: { $regex: contentToSearch, $options: "i" },
+    });
+    res.json(notes);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 router.get("/notes", async (req, res) => {
   try {
     const notes = await Note.find();
@@ -51,7 +65,7 @@ router.put("/notes/:id", async (req, res) => {
 
 router.delete("/notes/:id", async (req, res) => {
   try {
-    let id = req.params.id.slice(1);
+    let id = req.params.id;
     let objectID = mongoose.Types.ObjectId;
     let newID = new objectID(id);
     const note = await Note.findByIdAndRemove(newID);

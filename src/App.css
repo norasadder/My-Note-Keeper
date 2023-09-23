@@ -1,6 +1,6 @@
 :root {
   --background-color: white;
-  --gray: #f2f1f1;
+  --gray: #e4e4e4;
 }
 
 * {
@@ -35,7 +35,7 @@
 }
 
 .search-bar img {
-  height: 60%;
+  height: 40%;
   width: auto;
   padding-right: 15px;
 }
@@ -122,7 +122,7 @@ input:focus {
   border-radius: 10px;
   border: none;
   cursor: pointer;
-  background-color: rgb(244, 175, 135);
+  background-color: rgb(247, 213, 194);
 }
 
 .note-title,
@@ -146,7 +146,6 @@ input:focus {
   display: flex;
   justify-content: flex-end;
   display: none;
-  background-image: url(./images/trash.png);
 }
 
 .delete-note img {
