@@ -1,14 +1,17 @@
 import "./AddNote.css";
-import { useState, useEffect } from "react";
-export default function AddNote() {
-  const [isVisisble, setIsVisisble] = useState(false);
+import { useState } from "react";
+export default function AddNote({ onAddNewNote }) {
+  const [isExpanded, setIsExpanded] = useState(false);
   const [noteTitle, setNoteTitle] = useState("");
   const [noteContent, setNoteContent] = useState("");
-  function handleClick() {
-    setIsVisisble(!isVisisble);
+
+  function toggleExpand() {
+    setIsExpanded((prev) => !prev);
   }
 
   function handleKeyPress(event) {
+    if (event.key !== "Enter") return;
+
     const date = new Date();
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
@@ -20,26 +23,7 @@ export default function AddNote() {
       content: noteContent,
       creationDate: currentDate,
     };
-
-    if (event.key === "Enter") {
-      console.log("Enter key pressed");
-      fetch("http://localhost:3001/notes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
-      window.location.reload();
-    }
+    onAddNewNote(requestData);
   }
 
   function handleChangeTitle(e) {
@@ -51,12 +35,12 @@ export default function AddNote() {
   }
   return (
     <div>
-      {!isVisisble && (
+      {!isExpanded && (
         <div className="add-note-container">
-          <button onClick={handleClick}>Take a note..</button>
+          <button onClick={toggleExpand}>Take a note..</button>
         </div>
       )}
-      {isVisisble && (
+      {isExpanded && (
         <form className="add-note-form" onKeyDown={handleKeyPress}>
           <input
             type="text"
@@ -71,7 +55,7 @@ export default function AddNote() {
             onChange={handleChangeContent}
           ></input>
           <div className="add-note-close">
-            <input type="submit" value="close" onClick={handleClick}></input>
+            <input type="submit" value="close" onClick={toggleExpand}></input>
           </div>
         </form>
       )}

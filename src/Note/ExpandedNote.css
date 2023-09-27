@@ -1,0 +1,77 @@
+.note-on-click-container {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.note-on-click {
+  background-color: white;
+  width: 35%;
+  padding: 5px 10px 10px 15px;
+  border-radius: 10px;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  z-index: 3;
+}
+
+.note-on-click input {
+  width: 100%;
+  margin-top: 3%;
+  color: black;
+  border: none;
+}
+
+.note-on-click-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.note-on-click-buttons > button {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.note-on-click-title > input {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  font-size: 20px;
+}
+
+.note-on-click-content > input {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  font-size: 16px;
+}
+
+.note-on-click-creation-date {
+  background-color: var(--gray);
+  border-radius: 35px;
+  padding: 5px;
+  margin-top: 20px;
+  font-size: 12px;
+  width: 10%;
+  height: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.note-on-click-cancel {
+  color: red;
+}
