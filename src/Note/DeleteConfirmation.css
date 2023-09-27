@@ -1,4 +1,4 @@
-.note-on-delete-container {
+.delete-confirmation-container {
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.5);
@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.note-on-delete {
+.delete-confirmation {
   background-color: white;
   width: 35%;
   padding: 5px 10px 10px 15px;
@@ -21,25 +21,25 @@
   z-index: 3;
 }
 
-.note-on-delete-buttons {
+.delete-confirmation-buttons {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 10px;
 }
 
-.note-on-delete-buttons > button {
+.delete-confirmation-buttons > button {
   margin-right: 10px;
   font-size: 16px;
 }
 
-.note-on-delete-title > p {
+.delete-confirmation-title > p {
   display: flex;
   align-items: center;
   justify-content: start;
   font-size: 20px;
 }
 
-.note-on-delete-content > p {
+.delete-confirmation-content > p {
   display: flex;
   align-items: center;
   justify-content: start;
@@ -47,6 +47,6 @@
   margin-top: 0;
 }
 
-.note-on-delete-close {
+.delete-confirmation-close {
   color: red;
 }

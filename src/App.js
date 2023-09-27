@@ -32,7 +32,7 @@ export default function App() {
   }, [searchValue]);
 
   const handleNewNoteAdd = async (note) => {
-    PostFetch(note);
+    await PostFetch(note);
     const fetchedData = await GetFetch(URL);
     setNotes(fetchedData);
   };

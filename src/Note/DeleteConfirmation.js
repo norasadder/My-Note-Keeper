@@ -3,33 +3,36 @@ import { useContext } from "react";
 import { setNoteContext } from "../Context/setNoteContext.js";
 import { URLContext } from "../Context/URLContext.js";
 import "./DeleteConfirmation.css";
+
 export default function DeleteConfirmation({ setNoteDeleted, id }) {
   const setNotes = useContext(setNoteContext);
   const URL = useContext(URLContext);
+
   function onClose() {
     return setNoteDeleted(false);
   }
 
   async function onDelete() {
-    DeleteFetch(id);
+    await DeleteFetch(id);
     const fetchedData = await GetFetch(URL);
     setNotes(fetchedData);
+    setNoteDeleted(false);
   }
 
   return (
-    <div className="note-on-delete-container">
-      <div className="note-on-delete">
-        <div className="note-on-delete-title">
+    <div className="delete-confirmation-container">
+      <div className="delete-confirmation">
+        <div className="delete-confirmation-title">
           <p>Note Deletion</p>
         </div>
-        <div className="note-on-delete-content">
+        <div className="delete-confirmation-content">
           <p>are you sure you want to delete this note?</p>
         </div>
-        <div className="note-on-delete-buttons">
-          <button className="note-on-delete-close" onClick={onClose}>
+        <div className="delete-confirmation-buttons">
+          <button className="delete-confirmation-close" onClick={onClose}>
             close
           </button>
-          <button className="note-on-delete-delete" onClick={onDelete}>
+          <button className="delete-confirmation-delete" onClick={onDelete}>
             delete
           </button>
         </div>

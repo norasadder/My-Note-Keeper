@@ -3,6 +3,7 @@ import DeleteConfirmation from "./DeleteConfirmation";
 import ExpandedNote from "./ExpandedNote";
 import { useContext } from "react";
 import { URLContext } from "../Context/URLContext.js";
+
 export default function Note({
   title,
   content,
@@ -33,16 +34,11 @@ export default function Note({
           content={content}
           creationDate={creationDate}
           id={_id}
-          URL={URL}
         />
       )}
 
       {noteDeleted && (
-        <DeleteConfirmation
-          setNoteDeleted={setNoteDeleted}
-          id={_id}
-          URL={URL}
-        />
+        <DeleteConfirmation setNoteDeleted={setNoteDeleted} id={_id} />
       )}
 
       <button

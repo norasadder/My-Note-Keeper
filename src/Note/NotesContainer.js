@@ -1,7 +1,7 @@
 import Note from "./Note";
 import "./Note.css";
-const COLOR_PALLETTE = ["white", "#f7d5c2", "#f9f9c2"];
-const BORDER_PALLETTE = ["#e4e4e4", "transparent", "transparent"];
+const BACKGROUND_COLOR_PALLETTE = ["#fff", "#f7d5c2", "#f9f9c2"];
+const BORDER_COLOR_PALLETTE = ["#e4e4e4", "transparent", "transparent"];
 export default function NotesContainer({ notes }) {
   return (
     <div className="notes-container">
@@ -10,8 +10,12 @@ export default function NotesContainer({ notes }) {
           {...note}
           key={note.title}
           URL={URL}
-          backgroundColor={COLOR_PALLETTE[index % COLOR_PALLETTE.length]}
-          borderColor={BORDER_PALLETTE[index % BORDER_PALLETTE.length]}
+          backgroundColor={
+            BACKGROUND_COLOR_PALLETTE[index % BACKGROUND_COLOR_PALLETTE.length]
+          }
+          borderColor={
+            BORDER_COLOR_PALLETTE[index % BORDER_COLOR_PALLETTE.length]
+          }
         />
       ))}
     </div>

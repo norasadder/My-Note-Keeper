@@ -9,7 +9,7 @@ export default function AddNote({ onAddNewNote }) {
     setIsExpanded((prev) => !prev);
   }
 
-  function handleKeyPress(event) {
+  function onKeyPress(event) {
     if (event.key !== "Enter") return;
 
     const date = new Date();
@@ -26,11 +26,11 @@ export default function AddNote({ onAddNewNote }) {
     onAddNewNote(requestData);
   }
 
-  function handleChangeTitle(e) {
+  function onChangeTitle(e) {
     setNoteTitle(e.target.value);
   }
 
-  function handleChangeContent(e) {
+  function onChangeContent(e) {
     setNoteContent(e.target.value);
   }
   return (
@@ -41,18 +41,18 @@ export default function AddNote({ onAddNewNote }) {
         </div>
       )}
       {isExpanded && (
-        <form className="add-note-form" onKeyDown={handleKeyPress}>
+        <form className="add-note-form" onKeyDown={onKeyPress}>
           <input
             type="text"
             className="add-note-title"
             placeholder="Title"
-            onChange={handleChangeTitle}
+            onChange={onChangeTitle}
           ></input>
           <input
             type="text"
             className="add-note-content"
             placeholder="Take a note..."
-            onChange={handleChangeContent}
+            onChange={onChangeContent}
           ></input>
           <div className="add-note-close">
             <input type="submit" value="close" onClick={toggleExpand}></input>

@@ -1,4 +1,4 @@
-.note-on-click-container {
+.expanded-note-container {
   height: 100vh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.5);
@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.note-on-click {
+.expanded-note {
   background-color: white;
   width: 35%;
   padding: 5px 10px 10px 15px;
@@ -21,20 +21,20 @@
   z-index: 3;
 }
 
-.note-on-click input {
+.expanded-note input {
   width: 100%;
   margin-top: 3%;
   color: black;
   border: none;
 }
 
-.note-on-click-buttons {
+.expanded-note-buttons {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 10px;
 }
 
-.note-on-click-buttons > button {
+.expanded-note-buttons > button {
   margin-right: 10px;
   font-size: 16px;
 }
@@ -45,21 +45,21 @@ button {
   border: none;
 }
 
-.note-on-click-title > input {
+.expanded-note-title > input {
   display: flex;
   align-items: center;
   justify-content: start;
   font-size: 20px;
 }
 
-.note-on-click-content > input {
+.expanded-note-content > input {
   display: flex;
   align-items: center;
   justify-content: start;
   font-size: 16px;
 }
 
-.note-on-click-creation-date {
+.expanded-note-creation-date {
   background-color: var(--gray);
   border-radius: 35px;
   padding: 5px;
@@ -72,6 +72,6 @@ button {
   justify-content: center;
 }
 
-.note-on-click-cancel {
+.expanded-note-cancel {
   color: red;
 }

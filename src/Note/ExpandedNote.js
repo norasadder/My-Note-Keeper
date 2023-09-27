@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { setNoteContext } from "../Context/setNoteContext.js";
 import { URLContext } from "../Context/URLContext.js";
 import { GetFetch, PutFetch } from "../Fetch/fetch";
+
 export default function ExpandedNote({
   setNoteExpanded,
   title,
@@ -15,6 +16,7 @@ export default function ExpandedNote({
   const URL = useContext(URLContext);
   const [noteTitle, setNoteTitle] = useState(title);
   const [noteContent, setNoteContent] = useState(content);
+
   function onClickCancel() {
     return setNoteExpanded(false);
   }
@@ -40,35 +42,36 @@ export default function ExpandedNote({
       content: noteContent,
       creationDate: currentDate,
     };
-    PutFetch(id, requestData);
+
+    await PutFetch(id, requestData);
     const fetchedData = await GetFetch(URL);
     setNotes(fetchedData);
     setNoteExpanded(false);
   }
 
   return (
-    <div className="note-on-click-container">
-      <form className="note-on-click">
-        <div className="note-on-click-title">
+    <div className="expanded-note-container">
+      <form className="expanded-note">
+        <div className="expanded-note-title">
           <input
             type="text"
             defaultValue={title}
             onChange={onChangeTitle}
           ></input>
         </div>
-        <div className="note-on-click-content">
+        <div className="expanded-note-content">
           <input
             type="text"
             defaultValue={content}
             onChange={onChangeContent}
           ></input>
         </div>
-        <p className="note-on-click-creation-date">{creationDate}</p>
-        <div className="note-on-click-buttons">
-          <button className="note-on-click-cancel" onClick={onClickCancel}>
+        <p className="expanded-note-creation-date">{creationDate}</p>
+        <div className="expanded-note-buttons">
+          <button className="expanded-note-cancel" onClick={onClickCancel}>
             cancel
           </button>
-          <button className="note-on-click-done" onClick={onClickDone}>
+          <button className="expanded-note-done" onClick={onClickDone}>
             done
           </button>
         </div>
